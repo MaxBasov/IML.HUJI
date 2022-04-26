@@ -48,8 +48,8 @@ if __name__ == '__main__':
     plotly.offline.plot(month_std_fig)
     # Question 3 - Exploring differences between countries
     country_month_data =filered_data.groupby(['Country','Month'],as_index=False).agg(mean = ('Temp','mean'),std = ('Temp','std'))
-    country_month_data.to_csv("Country_Month_output.csv", index=False, encoding='utf8')
-    monthly_temp_per_country_fig = px.line(country_month_data,x='Month',y='mean', error_y='std',color='Country',                                   title="Average monthly temperature by Country",labels={"mean":" mean temperature"})
+    monthly_temp_per_country_fig = px.line(country_month_data,x='Month',y='mean', error_y='std',color='Country',
+                                           title="Average monthly temperature by Country",labels={"mean":" mean temperature"})
     plotly.offline.plot(monthly_temp_per_country_fig)
     # Question 4 - Fitting model for different values of `k`
     temp_vec = israel_temp_data['Temp']

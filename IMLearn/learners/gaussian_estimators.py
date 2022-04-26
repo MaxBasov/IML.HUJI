@@ -210,8 +210,11 @@ class MultivariateGaussian:
         dim = mu.size
         samples = X.size
         cov_det = det(cov)
-        const = samples * math.log(1.0/(math.pow(2*math.pi,float(dim)/2)) * math.pow(cov_det,1.0/2))
+        const = samples * math.log(1.0 / (math.pow((2 * math.pi), float(dim) / 2) * math.pow(cov_det, 1.0 / 2)), math.e)
         x_mu = X - mu
         cov_inverse = inv(cov)
+        if x_mu.ndim == 1:
+            product_vector = np.einsum('j,jk,k', x_mu, cov_inverse, x_mu.T)
+            return  const + (-0.5 * product_vector)
         product_vector = np.einsum('ij,jk,ki', x_mu,cov_inverse, x_mu.T)
         return  const + (-0.5 * product_vector)

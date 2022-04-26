@@ -21,7 +21,7 @@ def univariate_gaussian():
     x = np.random.normal(mu, sigma, size)
     univar_gauss = UnivariateGaussian()
     univar_gauss.fit(x)
-    print("(" + str(univar_gauss.mu_) + ', ' + str(univar_gauss.var_) + ')')
+    print("Q1 : (" + str(univar_gauss.mu_) + ', ' + str(univar_gauss.var_) + ')')
 
     """
     #q3 in the quiz
@@ -43,22 +43,22 @@ def univariate_gaussian():
     fig1 = go.Figure([go.Scatter(x=ms, y=distance_between_exp, mode='markers+lines', name="abs(estimated - real)"),
                       go.Scatter(x=ms, y=[0] * len(ms), mode='lines', name="Zero line")],
                      layout=go.Layout(
-                         title=" Estimation of difference between estimated and real Expectation As Function Of Number Of Samples",
+                         title="Q2: Estimation of difference between estimated and real Expectation As Function Of Number Of Samples",
                          xaxis_title="Number of samples", yaxis_title="abs(estimated - real) Expectation",
                          height=300))
     plotly.offline.plot(fig1)
     
 
-
+    """
     pdf_arr = (univar_gauss.pdf(x))
     #Question 3 - Plotting Empirical PDF of fitted model
     fig2 = go.Figure([go.Scatter(x=x, y=pdf_arr, mode='markers', name="Empirical PDF of fitted model")],
                      layout=go.Layout(
-                         title=" Empirical PDF of fitted gaussian model",
+                         title="Q3: Empirical PDF of fitted gaussian model",
                          xaxis_title="Ordered sample values", yaxis_title="Empirical PDF",
                          height=300))
     plotly.offline.plot(fig2)
-
+    """
 def multivariate_gaussian():
 
     # Question 4 - Draw samples and print fitted model
@@ -69,7 +69,10 @@ def multivariate_gaussian():
     x = np.random.multivariate_normal(mean,cov,size)
     multivar_gauss = MultivariateGaussian()
     multivar_gauss.fit(x)
+    print("Q4:")
+    print("Expectation:")
     print(multivar_gauss.mu_)
+    print("Cov:")
     print(multivar_gauss.cov_)
 
     # Question 5 - Likelihood evaluation
@@ -80,7 +83,7 @@ def multivariate_gaussian():
         for j in range (200):
             cur_mu =np.array([f1[i], 0, f3[j], 0])
             likelihood_arr[i][j] = multivar_gauss.log_likelihood(cur_mu,cov,x)
-    fig3 = px.imshow(likelihood_arr,x = f1,y=f3,title= "Log- likelihood of different expectations",height = 400,
+    fig3 = px.imshow(likelihood_arr,x = f1,y=f3,title= "Q5: Log- likelihood of different expectations",height = 400,
                      labels = dict(x="value of f1",y = "value of f3",color="log- likelihood"))
     plotly.offline.plot(fig3)
 
@@ -91,8 +94,7 @@ def multivariate_gaussian():
     # Question 6 - Maximum likelihood
 
     i,j= np.unravel_index(np.argmax(likelihood_arr, axis=None), likelihood_arr.shape)
-    print(f1[i],f3[j])
-    print("Maximum log-likelihood value achieved when f1 = " + str(round(f1[i],3)) + " and f3 = "+ str(round(f3[j],3)))
+    print("Q6 : Maximum log-likelihood value achieved when f1 = " + str(round(f1[i],3)) + " and f3 = "+ str(round(f3[j],3)))
 
 
 if __name__ == '__main__':
